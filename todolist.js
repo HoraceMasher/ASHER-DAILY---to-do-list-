@@ -19,7 +19,7 @@ function addTodo (item){
       completed: false,
     };
     tasks.push(todo);
-    renderToDos();
+   addToLocalStorage();
     taskInput.value= "";
   }
 } 
@@ -49,3 +49,36 @@ function addToLocalStorage(toDos) {
   renderToDos();
 }
 
+function getFromLocalStorage(){
+  const reference =localStorage.getItem("tasks");
+  if(reference){
+    tasks=JSON.parse(reference);
+    renderToDos(tasks);
+  }
+}
+getFromLocalStorage();
+
+taskList.addEventListener("click", function(event){
+  if(event.target.type==="checkbox") {
+    toggle(event.target.parentElement.getAttribute("data-key"));
+  }
+  if(event.target.classList.contains("delete-button")){
+    deleteTodo(event.target.parentElement.getAttribute("data-key"));
+  }
+
+function toggle(id) {
+  tasks.forEach(function(item) {
+    if (item.id == id) {
+      item.completed = !item.completed;
+    }
+  });
+addToLocalStorage(tasks);
+}
+
+function deleteTodo(id) {
+  tasks= tasks.filter(function(item) {
+    return item.id != id;
+  });
+  addToLocalStorage(tasks);
+}
+});
