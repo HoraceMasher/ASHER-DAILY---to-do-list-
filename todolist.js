@@ -72,14 +72,14 @@ function getFromLocalStorage(){
 getFromLocalStorage();
 
 taskList.addEventListener("click", function(event){
-  if(event.target.type==="checkbox") {
+  if(event.target.type==="checkbox") {// calls toggle function and checks the task
     toggle(event.target.parentElement.getAttribute("data-key"));
   }
-  if(event.target.classList.contains("delete-button")){
+  if(event.target.classList.contains("delete-button")){// calls the deleteTodo function
     deleteTodo(event.target.parentElement.getAttribute("data-key"));
   }
 
-function toggle(id) {
+function toggle(id) {// rupdates the ToDo list in response to the users action by clicking the check bok to find if the task is completed or uncompleted
   tasks.forEach(function(item) {
     if (item.id == id) {
       item.completed = !item.completed;
@@ -88,8 +88,8 @@ function toggle(id) {
 addToLocalStorage(tasks);
 }
 
-function deleteTodo(id) {
-  tasks= tasks.filter(function(item) {
+function deleteTodo(id) {// deletes an item from the tasks array if the user clicks the deletebutton
+  tasks= tasks.filter(function(item) {// filter method filters out the selected item
     return item.id != id;
   });
   addToLocalStorage(tasks);
